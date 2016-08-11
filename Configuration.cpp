@@ -19,6 +19,7 @@
 */
 
 #include "Configuration.h"
+#include "Global.h"
 
 #include <EEPROM.h>
 
@@ -52,14 +53,14 @@ Configuration::Configuration()
 
 void Configuration::load()
 {
-  Serial.println(F("INFO:loading eeprom configuration..."));
+  outStream->println(F("INFO:loading eeprom configuration..."));
   
   char eepromFormat[4];
   EEPROM.get(0, eepromFormat);
   bool eepromInitialized = eepromFormat[0] == 'F' && eepromFormat[1] == 'S' && eepromFormat[2] == 'R' && eepromFormat[3] == 'B';
   if (!eepromInitialized)
   {
-    Serial.println(F("INFO:eeprom is not initialized. Setting default values..."));
+    outStream->println(F("INFO:eeprom is not initialized. Setting default values..."));
     setDefaults();
     storeValues();
   }
@@ -68,7 +69,7 @@ void Configuration::load()
 
   if (version < EEPROM_VERSION)
   {
-    Serial.println(F("INFO:updating old eeprom version..."));
+    outStream->println(F("INFO:updating old eeprom version..."));
     updateEepromFormat(version);
   }
 
@@ -174,29 +175,29 @@ void Configuration::storeValues()
 }
 void Configuration::printSettings()
 {
-  Serial.print(F("INFO:FSR board configuration version "));Serial.println(EEPROM_VERSION);
-  Serial.print(F("INFO:longAverageBufferTime="));          Serial.println(longAverageBufferTime);
-  Serial.print(F("INFO:defaultEndstopMinHighMs="));        Serial.println(defaultEndstopMinHighMs);  
-  Serial.print(F("INFO:triggerThreshold="));               Serial.println(triggerThreshold);
-  Serial.print(F("INFO:calibrationLedDelay="));            Serial.println(calibrationLedDelay);
-  Serial.print(F("INFO:i2cSlaveAddress="));                Serial.println(i2cSlaveAddress);
-  Serial.print(F("INFO:coldTemp="));                       Serial.println(coldTemp);
-  Serial.print(F("INFO:hotTemp="));                        Serial.println(hotTemp);
-  Serial.print(F("INFO:alarmTemp="));                      Serial.println(alarmTemp);
-  Serial.print(F("INFO:coldR="));                          Serial.println(coldR);
-  Serial.print(F("INFO:coldG="));                          Serial.println(coldG);
-  Serial.print(F("INFO:coldB="));                          Serial.println(coldB);
-  Serial.print(F("INFO:hotR="));                           Serial.println(hotR);
-  Serial.print(F("INFO:hotG="));                           Serial.println(hotG);
-  Serial.print(F("INFO:hotB="));                           Serial.println(hotB);
-  Serial.print(F("INFO:endstopHighActive="));              Serial.println(endstopHighActive);
-  Serial.print(F("INFO:temperatureNominal="));             Serial.println(tempNominal);
-  Serial.print(F("INFO:thermistorNominal="));              Serial.println(thermNominal);
-  Serial.print(F("INFO:thermistorBeta="));                 Serial.println(thermBeta);
-  Serial.print(F("INFO:thermistorNumSamples="));           Serial.println(thermNumSamples);
-  Serial.print(F("INFO:alarmOutEnabled="));                Serial.println(alarmOutEnabled);
-  Serial.print(F("INFO:rgbOutEnabled="));                  Serial.println(rgbOutEnabled);
-  Serial.print(F("INFO:alarmHighActive="));                Serial.println(alarmHighActive);
+  outStream->print(F("INFO:FSR board configuration version "));outStream->println(EEPROM_VERSION);
+  outStream->print(F("INFO:longAverageBufferTime="));          outStream->println(longAverageBufferTime);
+  outStream->print(F("INFO:defaultEndstopMinHighMs="));        outStream->println(defaultEndstopMinHighMs);
+  outStream->print(F("INFO:triggerThreshold="));               outStream->println(triggerThreshold);
+  outStream->print(F("INFO:calibrationLedDelay="));            outStream->println(calibrationLedDelay);
+  outStream->print(F("INFO:i2cSlaveAddress="));                outStream->println(i2cSlaveAddress);
+  outStream->print(F("INFO:coldTemp="));                       outStream->println(coldTemp);
+  outStream->print(F("INFO:hotTemp="));                        outStream->println(hotTemp);
+  outStream->print(F("INFO:alarmTemp="));                      outStream->println(alarmTemp);
+  outStream->print(F("INFO:coldR="));                          outStream->println(coldR);
+  outStream->print(F("INFO:coldG="));                          outStream->println(coldG);
+  outStream->print(F("INFO:coldB="));                          outStream->println(coldB);
+  outStream->print(F("INFO:hotR="));                           outStream->println(hotR);
+  outStream->print(F("INFO:hotG="));                           outStream->println(hotG);
+  outStream->print(F("INFO:hotB="));                           outStream->println(hotB);
+  outStream->print(F("INFO:endstopHighActive="));              outStream->println(endstopHighActive);
+  outStream->print(F("INFO:temperatureNominal="));             outStream->println(tempNominal);
+  outStream->print(F("INFO:thermistorNominal="));              outStream->println(thermNominal);
+  outStream->print(F("INFO:thermistorBeta="));                 outStream->println(thermBeta);
+  outStream->print(F("INFO:thermistorNumSamples="));           outStream->println(thermNumSamples);
+  outStream->print(F("INFO:alarmOutEnabled="));                outStream->println(alarmOutEnabled);
+  outStream->print(F("INFO:rgbOutEnabled="));                  outStream->println(rgbOutEnabled);
+  outStream->print(F("INFO:alarmHighActive="));                outStream->println(alarmHighActive);
 }
 
 void Configuration::killEEPROM()

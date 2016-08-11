@@ -21,6 +21,7 @@
 #include <EEPROM.h>
 #include <Wire.h>
 
+#include "Global.h"
 #include "Configuration.h"
 #include "Color.h"
 #include "Command.h"
@@ -34,6 +35,7 @@
 #include "GCodeParser.h"
 #include "RGBLed.h"
 
+
 Sensor sensor[SENSOR_COUNT] = { Sensor(DEFAULT_LONG_AVERAGE_BUFFER_SIZE, DEFAULT_SHORT_AVERAGE_BUFFER_SIZE, SENSOR1_ANALOG_PIN) 
                               , Sensor(DEFAULT_LONG_AVERAGE_BUFFER_SIZE, DEFAULT_SHORT_AVERAGE_BUFFER_SIZE, SENSOR2_ANALOG_PIN)
                               , Sensor(DEFAULT_LONG_AVERAGE_BUFFER_SIZE, DEFAULT_SHORT_AVERAGE_BUFFER_SIZE, SENSOR3_ANALOG_PIN) 
@@ -43,6 +45,7 @@ SensorLed sensorLed;
 GCodeParser parser;
 Thermistor thermistor;
 RGBLed leds;
+Stream *outStream;
 
 const int fsrDebugPin[] = { SENSOR1_LED_PIN, SENSOR2_LED_PIN, SENSOR3_LED_PIN };
 
@@ -54,6 +57,8 @@ void setup()
   Serial.begin(9600);
   while (!Serial) { }
 
+  outStream = &Serial;
+
   Commands::printFirmwareInfo();
 
   //Configuration::killEEPROM();
@@ -61,6 +66,7 @@ void setup()
 
   Wire.begin(Configuration::getI2cSlaveAddress());
   Wire.onReceive(receiveEvent);
+
     
   pinMode(CALIBRATION_SWITCH_PIN, INPUT_PULLUP);
   
@@ -117,7 +123,7 @@ void loop()
       digitalWrite(ALARM_OUT_PIN, Configuration::getAlarmHighActive() ? LOW : HIGH);
       if (debugLevel > 0 && !alarmOutTriggerMessage)
       {
-        Serial.println("DEBUG:triggering alarm out");
+    	outStream->println("DEBUG:triggering alarm out");
         alarmOutTriggerMessage = true;
       }
     }
@@ -196,6 +202,7 @@ void addCommand(Command c)
 
 void receiveEvent(int howMany) 
 {
+  outStream = &Wire;
   while (Wire.available() > 0)  //TODO: limit byte reads per loop iteration
   {
     parser.parse( Wire.read(), addCommand );

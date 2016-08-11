@@ -21,6 +21,7 @@
 #include "Endstop.h"
 #include "Pins.h"
 #include "Configuration.h"
+#include "Global.h"
 
 #include <Arduino.h>
 
@@ -67,7 +68,7 @@ void Endstop::endstopHigh()
 {
   if (!triggeredMessage)
   {
-    Serial.println("INFO:triggering endstop out");
+    outStream->println("INFO:triggering endstop out");
     triggeredMessage = true;
   }
   digitalWrite(ENDSTOP_OUT_PIN, Configuration::getEndstopHighActive() ? LOW : HIGH);

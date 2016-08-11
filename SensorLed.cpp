@@ -19,6 +19,7 @@
 */
 
 #include <Arduino.h>
+#include "Global.h"
 #include "Sensor.h"
 #include "SensorLed.h"
 #include "Configuration.h"
@@ -50,7 +51,7 @@ void SensorLed::update(unsigned long time)
 			analogWrite(sensorLed[i], 0);
 		}
     state = SLS_CALIBRATE;
-    Serial.println("INFO:starting calibration");
+    outStream->println("INFO:starting calibration");
 		break;
 	case SLS_CALIBRATE:
 		if (sensors[0]->is_calibrating() || sensors[1]->is_calibrating() || sensors[2]->is_calibrating())
@@ -76,7 +77,7 @@ void SensorLed::update(unsigned long time)
 		else
 		{
 			state = SLS_MONITORING;
-      Serial.println("INFO:finished calibration");
+      outStream->println("INFO:finished calibration");
 		}
 		break;
 	case SLS_MONITORING:
@@ -89,7 +90,7 @@ void SensorLed::update(unsigned long time)
     if (sensors[0]->is_calibrating() || sensors[1]->is_calibrating() || sensors[2]->is_calibrating())
     {
       state = SLS_CALIBRATE;
-      Serial.println("INFO:starting calibration");
+      outStream->println("INFO:starting calibration");
     }
 		break;
 	}

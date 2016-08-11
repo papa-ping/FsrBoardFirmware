@@ -18,76 +18,79 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "Global.h"
+
 #include "Commands.h"
 #include "Endstop.h"
 #include "Sensor.h"
 #include "Thermistor.h"
 #include "Configuration.h"
 
+
 #include <Arduino.h>
 
 void Commands::printDiagnose(Sensor& s0, Sensor& s1, Sensor& s2, Thermistor& therm)
 {
-  Serial.println(F("INFO:diagnostic information"));
+  outStream->println(F("INFO:diagnostic information"));
   
-  Serial.println(F("INFO:sensor 0"));
-  Serial.print(F("INFO:is_triggered: "));
-  Serial.print(s0.is_triggered());
-  Serial.print(F(" is_calibrating: "));
-  Serial.println(s0.is_calibrating());
-  Serial.print(F("INFO:short_average: "));
-  Serial.print(s0.shortAverage());
-  Serial.print(F(" long_average: "));
-  Serial.println(s0.longAverage());
+  outStream->println(F("INFO:sensor 0"));
+  outStream->print(F("INFO:is_triggered: "));
+  outStream->print(s0.is_triggered());
+  outStream->print(F(" is_calibrating: "));
+  outStream->println(s0.is_calibrating());
+  outStream->print(F("INFO:short_average: "));
+  outStream->print(s0.shortAverage());
+  outStream->print(F(" long_average: "));
+  outStream->println(s0.longAverage());
   
-  Serial.println(F("INFO:sensor 1"));
-  Serial.print(F("INFO:is_triggered: "));
-  Serial.print(s1.is_triggered());
-  Serial.print(F(" is_calibrating: "));
-  Serial.println(s1.is_calibrating());
-  Serial.print(F("INFO:short_average: "));
-  Serial.print(s1.shortAverage());
-  Serial.print(F(" long_average: "));
-  Serial.println(s1.longAverage());
+  outStream->println(F("INFO:sensor 1"));
+  outStream->print(F("INFO:is_triggered: "));
+  outStream->print(s1.is_triggered());
+  outStream->print(F(" is_calibrating: "));
+  outStream->println(s1.is_calibrating());
+  outStream->print(F("INFO:short_average: "));
+  outStream->print(s1.shortAverage());
+  outStream->print(F(" long_average: "));
+  outStream->println(s1.longAverage());
 
-  Serial.println(F("INFO:sensor 2"));
-  Serial.print(F("INFO:is_triggered: "));
-  Serial.print(s2.is_triggered());
-  Serial.print(F(" is_calibrating: "));
-  Serial.println(s2.is_calibrating());
-  Serial.print(F("INFO:short_average: "));
-  Serial.print(s2.shortAverage());
-  Serial.print(F(" long_average: "));
-  Serial.println(s2.longAverage());
+  outStream->println(F("INFO:sensor 2"));
+  outStream->print(F("INFO:is_triggered: "));
+  outStream->print(s2.is_triggered());
+  outStream->print(F(" is_calibrating: "));
+  outStream->println(s2.is_calibrating());
+  outStream->print(F("INFO:short_average: "));
+  outStream->print(s2.shortAverage());
+  outStream->print(F(" long_average: "));
+  outStream->println(s2.longAverage());
 
-  Serial.println(F("INFO:thermistor"));
-  Serial.print(F("INFO:raw resistance: "));
-  Serial.println(therm.getRawResistance());
-  Serial.print(F("INFO:temperature: "));
-  Serial.println(therm.getCurrentTemperature());
+  outStream->println(F("INFO:thermistor"));
+  outStream->print(F("INFO:raw resistance: "));
+  outStream->println(therm.getRawResistance());
+  outStream->print(F("INFO:temperature: "));
+  outStream->println(therm.getCurrentTemperature());
 }
 
 void Commands::printFirmwareInfo()
 {
-  Serial.println(F("INFO:Welcome to FSR board Firmware v2 dev"));
+  outStream->println(F("INFO:Welcome to FSR board Firmware v2 dev"));
 }
 
 void Commands::printEndstopStatus(Endstop endstop)
 {
-  Serial.print(F("INFO:endstop out status: "));
-  Serial.println(endstop.is_triggered());
+  outStream->print(F("INFO:endstop out status: "));
+  outStream->println(endstop.is_triggered());
 }
 
 void Commands::factorySettings()
 {
   Configuration::setDefaults();
-  Serial.println(F("INFO:reverted to factory settings, but not stored in EEPROM"));
+  outStream->println(F("INFO:reverted to factory settings, but not stored in EEPROM"));
 }
 
 void Commands::storeSettings()
 {
   Configuration::storeValues();
-  Serial.println(F("INFO:stored settings to EEPROM"));
+  outStream->println(F("INFO:stored settings to EEPROM"));
 }
 
 void Commands::printSettings()
@@ -97,15 +100,15 @@ void Commands::printSettings()
 
 void Commands::setConfigurationValue(const char* k, long v)
 {
-  Serial.print(F("INFO:set configuration key '"));
-  Serial.print(k);
-  Serial.print(F("' to value "));
-  Serial.println(v);
+  outStream->print(F("INFO:set configuration key '"));
+  outStream->print(k);
+  outStream->print(F("' to value "));
+  outStream->println(v);
   Configuration::setKeyValue(k, v);
 }
 
 void Commands::unknownCommand()
 {
-  Serial.println(F("WARN:don't know how to handle that command"));
+  outStream->println(F("WARN:don't know how to handle that command"));
 }
 

@@ -18,6 +18,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "Global.h"
 #include "Command.h"
 #include "Arduino.h"
 
@@ -79,11 +80,11 @@ void Command::print()
   cout << endl;
 */
 
-  Serial.print("DEBUG: Command (line: ");
-  Serial.print(lineNumber);
-  Serial.print(") ");
-  Serial.print((char)commandType);
-  Serial.println(commandNumber);
+  outStream->print("DEBUG: Command (line: ");
+  outStream->print(lineNumber);
+  outStream->print(") ");
+  outStream->print((char)commandType);
+  outStream->println(commandNumber);
 }
 
 double Command::getParameterValue(ParameterType parameterType, double defaultValue)

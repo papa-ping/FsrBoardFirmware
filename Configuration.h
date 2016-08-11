@@ -21,6 +21,7 @@
 #pragma once
 
 #include "Arduino.h"
+#include "Global.h"
 
 #define SENSOR_COUNT						          3
 #define DEFAULT_LONG_AVERAGE_BUFFER_SIZE	16
