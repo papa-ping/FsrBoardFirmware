@@ -84,7 +84,7 @@ bool Sensor::is_triggered()
   if (idx == 2) triggerThreshold = Configuration::getTrigger2Threshold();
   if (idx == 3) triggerThreshold = Configuration::getTrigger3Threshold();
 
-  bool result = v >= triggerThreshold;
+  bool result = (v >= triggerThreshold);
 
   if (result && Configuration::getDebugLevel() == 3) {
 	  debugTriggering(v);
@@ -95,7 +95,7 @@ bool Sensor::is_triggered()
 
 void Sensor::debugCurrent(int v) {
 	Serial.print(F("S"));
-	Serial.print(analogPin);
+	Serial.print(idx);
 	Serial.print(F(":"));
 	// minus printing
 	Serial.print((v<0)? '-' :  ' ');
@@ -115,7 +115,7 @@ void Sensor::debugCurrent(int v) {
 
 void Sensor::debugTriggering(int diff) {
 	Serial.print(F("Triggered S"));
-	Serial.print(analogPin);
+	Serial.print(idx);
 	Serial.print(F(": Diff="));
 	Serial.print(diff);
 	Serial.print(F(" ShortABuf="));
