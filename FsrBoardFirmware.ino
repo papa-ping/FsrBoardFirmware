@@ -34,9 +34,9 @@
 #include "GCodeParser.h"
 #include "RGBLed.h"
 
-Sensor sensor[SENSOR_COUNT] = { Sensor(DEFAULT_LONG_AVERAGE_BUFFER_SIZE, DEFAULT_SHORT_AVERAGE_BUFFER_SIZE, SENSOR1_ANALOG_PIN) 
-                              , Sensor(DEFAULT_LONG_AVERAGE_BUFFER_SIZE, DEFAULT_SHORT_AVERAGE_BUFFER_SIZE, SENSOR2_ANALOG_PIN)
-                              , Sensor(DEFAULT_LONG_AVERAGE_BUFFER_SIZE, DEFAULT_SHORT_AVERAGE_BUFFER_SIZE, SENSOR3_ANALOG_PIN) 
+Sensor sensor[SENSOR_COUNT] = { Sensor(Configuration::getTrigger1Threshold(),  DEFAULT_LONG_AVERAGE_BUFFER_SIZE, DEFAULT_SHORT_AVERAGE_BUFFER_SIZE, SENSOR1_ANALOG_PIN)
+                              , Sensor(Configuration::getTrigger2Threshold(), DEFAULT_LONG_AVERAGE_BUFFER_SIZE, DEFAULT_SHORT_AVERAGE_BUFFER_SIZE, SENSOR2_ANALOG_PIN)
+                              , Sensor(Configuration::getTrigger3Threshold(), DEFAULT_LONG_AVERAGE_BUFFER_SIZE, DEFAULT_SHORT_AVERAGE_BUFFER_SIZE, SENSOR3_ANALOG_PIN)
                               } ;
 Endstop endstop;
 SensorLed sensorLed;
@@ -90,7 +90,7 @@ void loop()
       sensor[i].reset();
     }
     sensor[i].update(time);
-    sensorTriggered |= sensor[i].is_triggered(i+1);
+    sensorTriggered |= sensor[i].is_triggered();
   }
 
   // Newline printing and slowing down for debugLevel 6 and 7.
