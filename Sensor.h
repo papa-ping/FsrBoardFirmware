@@ -53,6 +53,5 @@ private:
   unsigned long longAverageThreshold;
   int analogPin;
   int debug;
-  uint16_t *triggerThreshold;
-};
+ };
 

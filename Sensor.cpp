@@ -25,7 +25,7 @@ Sensor::Sensor(uint16_t* threshold, int analogPin)
   : triggerThreshold(threshold)
   , analogPin(analogPin)
   , timeAccu(0)
-  , triggerThreshold(threshold)
+
 {
 }
 
@@ -37,7 +37,7 @@ void Sensor::update(unsigned long time)
 
   timeAccu += time - lastTime;
 
-  if (timeAccu > longAverageThreshold && !is_triggered())
+  if (timeAccu > longAverageThreshold /*&& !is_triggered()*/)
   {
     timeAccu -= longAverageThreshold;
     longAverageBuffer.push(v);
