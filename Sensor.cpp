@@ -37,7 +37,11 @@ void Sensor::update(unsigned long time)
 
   timeAccu += time - lastTime;
 
+<<<<<<< HEAD
   if (timeAccu > longAverageThreshold /*&& !is_triggered()*/)
+=======
+  if (timeAccu > longAverageThreshold)
+>>>>>>> Glatzemann/dev-v2
   {
     timeAccu -= longAverageThreshold;
     longAverageBuffer.push(v);
