@@ -69,7 +69,7 @@ void Commands::printDiagnose(Sensor& s0, Sensor& s1, Sensor& s2, Thermistor& the
 
 void Commands::printFirmwareInfo()
 {
-  Serial.println(F("INFO:Welcome to FSR board Firmware v2 dev"));
+  Serial.println(F("INFO:Welcome to FSR board Firmware v2"));
 }
 
 void Commands::printEndstopStatus(Endstop endstop)
