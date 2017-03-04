@@ -48,6 +48,6 @@ For setting configuration values use the M800 M-Code. It has two argument types:
 * thermistorNumSamples (default: 5) - number of samples for smooth thermistor readings
 * alarmOutEnabled (default: 0) - output of alarm signal when thermistor temperature reading exceeds *alarmTemp*
 * alarmHighActive (default: 0) - when value is greater than 0, the alarm trigger logic is inverted
-* rgbOutEnabled (default: 0) - when value is greater than 0, the rgb output logic is enabled. Needs working thermistor.
+* rgbOutEnabled (default: 0) - if value equals to 0 rgb output is off, if value=1 the rgb output is on after reset, if value=2 the rgb output logic is enabled. Needs working thermistor.
 
 

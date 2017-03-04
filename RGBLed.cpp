@@ -12,12 +12,17 @@
 #include "Color.h"
 
 RGBLed::RGBLed()  {
-  state = Configuration::getRgbOutEnabled() ? Manual : Heating;
+  state = Configuration::getRgbOutEnabled()>1 ? Heating : Manual;
 
   pinMode(LED_R, OUTPUT);
   pinMode(LED_G, OUTPUT);
   pinMode(LED_B, OUTPUT);
-  off();
+
+  if (Configuration::getRgbOutEnabled()==1) {
+	  set(255,255,255);
+  } else {
+	  off();
+  }
 }
 
 RGBLed::~RGBLed() {

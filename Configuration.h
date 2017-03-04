@@ -65,7 +65,7 @@ public:
   static float getTemperatureNominal() { return tempNominal; }
   static byte getThermistorNumSamples() { return thermNumSamples; }
   static boolean getAlarmOutEnabled() { return alarmOutEnabled > 0; }
-  static boolean getRgbOutEnabled() { return rgbOutEnabled > 0; }
+  static byte getRgbOutEnabled() { return rgbOutEnabled; }
   static boolean getAlarmHighActive() { return alarmHighActive > 0; }
   static byte getDebugLevel() { return debugLevel; }
   static void setDebugLevel( byte level) { debugLevel = level; }
