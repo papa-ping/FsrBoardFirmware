@@ -18,6 +18,7 @@ class RGBLed {
 public:
 	RGBLed();
 	~RGBLed();
+	void init();
 	void set(byte red, byte green, byte blue);
 	void off();
 	void on();

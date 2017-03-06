@@ -58,6 +58,8 @@ void setup()
   //Configuration::killEEPROM();
   Configuration::load();
 
+  leds.init();
+
   Wire.begin(Configuration::getI2cSlaveAddress());
   Wire.onReceive(receiveEvent);
     
